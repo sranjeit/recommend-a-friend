@@ -162,41 +162,68 @@ p { margin: 0 0 14px; color: var(--ink); }
   margin: 28px 0;
 }
 
-/* ---------- Steps (real sequence — recommend, share, verified, rewarded) ---------- */
-.steps { margin: 20px 0; }
-.step {
-  display: flex;
-  gap: 14px;
-  padding: 14px 0;
-  border-top: 1px solid var(--line);
+/* ---------- Infographics Grid ---------- */
+.infographic-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin: 24px 0;
 }
-.step:first-child { border-top: none; }
-.step-index {
-  font-family: var(--font-display);
-  font-size: 13px;
-  color: var(--ledger);
-  width: 26px;
-  flex-shrink: 0;
-  padding-top: 1px;
-}
-.step-body h3 { margin-bottom: 3px; }
-.step-body p { margin: 0; font-size: 14px; color: var(--slate); }
 
-/* ---------- Chain diagram (signature element) ---------- */
-.chain-wrap {
+@media (min-width: 480px) {
+  .infographic-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.infographic-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  background: #fff;
   border: 1px solid var(--line);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  transition: transform 150ms ease, box-shadow 150ms ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.infographic-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.info-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-sm);
   background: var(--paper-2);
-  padding: 20px 16px 16px;
-  margin: 18px 0;
+  color: var(--ledger);
+  padding: 8px;
+  transition: background 150ms ease;
 }
-.chain-wrap .chain-caption {
-  font-size: 12.5px;
+
+.infographic-card:hover .info-icon {
+  background: var(--seal-bg);
+  color: var(--seal);
+}
+
+.info-content h3 {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 0 0 6px 0;
+}
+
+.info-content p {
+  font-size: 13.5px;
   color: var(--slate);
-  margin: 10px 0 0;
-  text-align: center;
+  margin: 0;
+  line-height: 1.5;
 }
-.chain-svg { width: 100%; height: auto; display: block; }
 
 /* ---------- Buttons ---------- */
 .btn {

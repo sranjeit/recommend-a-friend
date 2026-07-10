@@ -75,7 +75,6 @@ const RAF = (function () {
     const form = document.getElementById("raf-form");
     form.reset();
     document.querySelectorAll(".field").forEach(f => f.classList.remove("has-error"));
-    document.getElementById("consent-error").style.display = "none";
     showView("form");
   }
 
@@ -104,11 +103,6 @@ const RAF = (function () {
     const ids = ["yourName", "yourMobile", "friendName", "friendMobile", "course"];
     let allOk = true;
     ids.forEach(id => { if (!validateField(id)) allOk = false; });
-
-    const consent = document.getElementById("consent").checked;
-    const consentError = document.getElementById("consent-error");
-    consentError.style.display = consent ? "none" : "block";
-    if (!consent) allOk = false;
 
     return allOk;
   }
@@ -196,8 +190,15 @@ const RAF = (function () {
   function onSubmitSuccess(payload, result) {
     const referralId = result.referralId || generateReferralId();
     const referralLink = result.referralLink || (CONFIG.SITE_URL + "?ref=" + encodeURIComponent(referralId));
-    state.lastResult = { referralId, referralLink, friendName: payload.friendName };
+    state.lastResult = {
+      referralId,
+      referralLink,
+      friendName: payload.friendName,
+      course: payload.course,
+      friendMobile: payload.friendMobile
+    };
     renderSuccess(state.lastResult);
+    autoShareWhatsApp(state.lastResult);
   }
 
   // If the backend is unreachable/unconfigured, the user still gets a
@@ -207,9 +208,16 @@ const RAF = (function () {
   function onSubmitFallback(payload) {
     const referralId = generateReferralId();
     const referralLink = CONFIG.SITE_URL + "?ref=" + encodeURIComponent(referralId);
-    state.lastResult = { referralId, referralLink, friendName: payload.friendName };
+    state.lastResult = {
+      referralId,
+      referralLink,
+      friendName: payload.friendName,
+      course: payload.course,
+      friendMobile: payload.friendMobile
+    };
     renderSuccess(state.lastResult);
     console.warn("Recommendation captured locally only — configure CONFIG.SCRIPT_URL in app.js to save it to Google Sheets.");
+    autoShareWhatsApp(state.lastResult);
   }
 
   function renderSuccess(result) {
@@ -249,17 +257,32 @@ const RAF = (function () {
     document.body.removeChild(ta);
   }
 
+  function getWhatsAppMessage(result) {
+    return `Hi! I have referred you for the course "${result.course}" at Samyak Computer Classes, Sambalpur.\n\n` +
+      `You can learn more and also recommend someone who may benefit from it:\n\n` +
+      result.referralLink;
+  }
+
+  function formatWhatsAppPhone(mobile) {
+    let phone = (mobile || "").replace(/\D/g, "");
+    if (phone.length === 10) {
+      phone = "91" + phone;
+    }
+    return phone;
+  }
+
+  function autoShareWhatsApp(result) {
+    const message = getWhatsAppMessage(result);
+    const phone = formatWhatsAppPhone(result.friendMobile);
+    const url = "https://wa.me/" + phone + "?text=" + encodeURIComponent(message);
+    window.location.href = url;
+  }
+
   function shareWhatsApp() {
-    const link = state.lastResult ? state.lastResult.referralLink : "";
-    if (!link) return;
-
-    // Message crafted to read as a genuine, low-pressure heads-up rather
-    // than a promotional forward: helpful framing, no urgency, no selling.
-    const message =
-      "Hi! I recommended someone for a course at Brightpath Institute, and thought I'd pass this along too — " +
-      "in case you know someone who'd find it useful. No pressure at all, just sharing:\n" + link;
-
-    const url = "https://wa.me/?text=" + encodeURIComponent(message);
+    if (!state.lastResult) return;
+    const message = getWhatsAppMessage(state.lastResult);
+    const phone = formatWhatsAppPhone(state.lastResult.friendMobile);
+    const url = "https://wa.me/" + phone + "?text=" + encodeURIComponent(message);
     window.open(url, "_blank", "noopener");
   }
 
