@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Dashboard — Recommend a Friend</title>
+<title>Dashboard — Referral Program</title>
 <meta name="robots" content="noindex, nofollow">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,16 +18,15 @@
 
   <div class="topbar">
     <a class="brand" href="index.html">
-      <span class="brand-mark">Referral Dashboard</span>
+      <span style="font-size:15px; font-weight:600;">Referral Dashboard</span>
     </a>
   </div>
 
   <!-- ============ Token gate ============ -->
-  <section id="gate" class="card gate-card">
-    <span class="eyebrow">Admin only</span>
-    <h2>Enter dashboard token</h2>
-    <p class="text-muted" style="font-size:13.5px">This is the ADMIN_TOKEN generated when you ran <code>setup()</code> in Apps Script.</p>
-    <input type="password" id="token-input" placeholder="Dashboard token" autocomplete="off">
+  <section id="gate" class="gate-card" style="background:#fff; border:1.5px solid var(--line); border-radius:18px; padding:28px; margin-top:40px;">
+    <h2 style="font-size:20px; margin-bottom:6px;">Enter dashboard token</h2>
+    <p class="text-muted" style="font-size:13.5px; margin-bottom:16px;">This is the ADMIN_TOKEN generated when you ran <code>setup()</code> in Apps Script.</p>
+    <input type="password" id="token-input" placeholder="Dashboard token" autocomplete="off" style="width:100%; font-size:16px; padding:13px 15px; border:1.5px solid var(--line); border-radius:8px; font-family:var(--font-body); margin-bottom:12px;">
     <button class="btn btn-primary" onclick="ADMIN.unlock()">View dashboard</button>
     <p class="text-muted" id="gate-error" style="font-size:12.5px; color:var(--danger); display:none; margin-top:10px;">That token wasn't accepted. Check Apps Script → Project Settings → Script Properties.</p>
   </section>
@@ -36,8 +35,8 @@
   <section id="dashboard" style="display:none">
 
     <div class="hero">
-      <span class="eyebrow">Live from Google Sheets</span>
-      <h1 style="font-size:24px">Referral performance</h1>
+      <span style="font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:0.07em; color:var(--slate);">Live from Google Sheets</span>
+      <h1 style="font-size:24px; margin-top:6px;">Referral performance</h1>
     </div>
 
     <div class="refresh-row">
@@ -78,8 +77,8 @@
 
       <div class="dash-section dash-grid two">
         <div>
-          <h2 style="font-size:16px">Referral chain depth</h2>
-          <p class="text-muted" style="font-size:12.5px; margin-top:-6px;">Tracked for analytics only — appreciation is paid on Level 1 (direct) recommendations exclusively.</p>
+          <h2 style="font-size:16px">Referral depth</h2>
+          <p class="text-muted" style="font-size:12.5px; margin-top:-6px;">Tracked for analytics only.</p>
           <div class="chart-card"><canvas id="chart-levels" height="160"></canvas></div>
         </div>
         <div>

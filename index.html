@@ -3,22 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Recommend a Friend</title>
-<meta name="description" content="Know someone who'd benefit from a course? Recommend them in under a minute and earn referral benefits.">
+<title>Share a Learning Opportunity</title>
+<meta name="description" content="Know someone who would benefit from a course? Share their details and we'll send them information about learning opportunities.">
 
 <!-- ================= Open Graph / Social Sharing ================= -->
 <meta property="og:type" content="website">
-<meta property="og:title" content="Recommend a Friend">
-<meta property="og:description" content="Someone recommended this to you. Take a minute to see what it's about.">
+<meta property="og:title" content="A friend thought of you">
+<meta property="og:description" content="Someone has shared a learning opportunity with you. Find out more.">
 <meta property="og:image" content="https://sranjeit.github.io/recommend-a-friend/assets/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:url" content="https://sranjeit.github.io/recommend-a-friend/">
-<meta property="og:site_name" content="Recommend a Friend">
+<meta property="og:site_name" content="Share a Learning Opportunity">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#FAFAF8">
+<meta name="theme-color" content="#F8F7F4">
 
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%23146356%22/><text x=%2250%22 y=%2263%22 font-size=%2250%22 fill=%22white%22 text-anchor=%22middle%22 font-family=%22Georgia,serif%22>R</text></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%23146356%22/><text x=%2250%22 y=%2266%22 font-size=%2254%22 fill=%22white%22 text-anchor=%22middle%22 font-family=%22Georgia,serif%22>✦</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&display=swap" rel="stylesheet">
@@ -30,132 +30,107 @@
 
   <div class="topbar">
     <a class="brand" href="#" onclick="RAF.goHome(event)">
-      <span class="brand-mark">Recommend a Friend</span>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      <span>Share an Opportunity</span>
     </a>
   </div>
 
-  <!-- ================= VIEW: LANDING ================= -->
+  <!-- ===== VIEW: LANDING ===== -->
   <section id="view-landing" class="view is-active" aria-labelledby="landing-heading">
 
-    <div class="hero">
-      <span class="eyebrow">Share the opportunity to learn</span>
-      <h1 id="landing-heading">Know someone ready to learn something new?</h1>
-      <p class="hero-lede">Recommend them in under a minute. We'll share details about our courses and let them explore the opportunities.</p>
+    <div class="hero hero-landing">
+      <h1 id="landing-heading">Help a friend discover a course that may support their career.</h1>
+      <p class="hero-lede">Share their details and we'll send them course information — no pressure, no obligation.</p>
     </div>
 
-    <div class="trust-strip" role="list" aria-label="Trust indicators">
-      <div class="trust-item" role="listitem"><span class="n">Simple</span><span class="l">Direct referrals</span></div>
-      <div class="trust-item" role="listitem"><span class="n">₹0</span><span class="l">Cost to recommend</span></div>
-      <div class="trust-item" role="listitem"><span class="n">1 min</span><span class="l">To submit</span></div>
+    <!-- Visual flow — vertical, connected -->
+    <div class="flow" role="list" aria-label="How it works">
+      <div class="flow-step" role="listitem">
+        <div class="flow-icon-col">
+          <div class="flow-icon" aria-hidden="true">👤</div>
+          <div class="flow-connector" aria-hidden="true"></div>
+        </div>
+        <p class="flow-text">Know someone who may benefit from a course?</p>
+      </div>
+      <div class="flow-step" role="listitem">
+        <div class="flow-icon-col">
+          <div class="flow-icon" aria-hidden="true">📚</div>
+          <div class="flow-connector" aria-hidden="true"></div>
+        </div>
+        <p class="flow-text">We share course information with them</p>
+      </div>
+      <div class="flow-step" role="listitem">
+        <div class="flow-icon-col">
+          <div class="flow-icon" aria-hidden="true">🎯</div>
+          <div class="flow-connector" aria-hidden="true"></div>
+        </div>
+        <p class="flow-text">They decide if it is right for them</p>
+      </div>
+      <div class="flow-step flow-step-last" role="listitem">
+        <div class="flow-icon-col">
+          <div class="flow-icon" aria-hidden="true">🤝</div>
+        </div>
+        <p class="flow-text">You've helped someone discover a learning opportunity</p>
+      </div>
     </div>
 
-    <button class="btn btn-primary" style="margin-top:12px" onclick="RAF.showView('form')">
-      Recommend someone
+    <div class="benefit-hint" role="note">
+      <span class="benefit-gift" aria-hidden="true">🎁</span>
+      As a thank-you, successful recommendations may qualify for a <strong>₹500 appreciation benefit.</strong>
+    </div>
+
+    <button class="btn btn-primary" id="landing-cta" onclick="RAF.showView('form')">
+      Share this opportunity
     </button>
 
-    <hr class="divider">
-
-    <h2>How it works</h2>
-    <div class="infographic-grid">
-      <div class="infographic-card">
-        <div class="info-icon">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--ledger)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
-            <circle cx="9" cy="7" r="4"/>
-            <line x1="19" y1="8" x2="19" y2="14"/>
-            <line x1="22" y1="11" x2="16" y2="11"/>
-          </svg>
-        </div>
-        <div class="info-content">
-          <h3>1. Refer a friend</h3>
-          <p>Submit your friend's details and their course of interest in under a minute.</p>
-        </div>
-      </div>
-
-      <div class="infographic-card">
-        <div class="info-icon">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--ledger)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-            <line x1="12" y1="6" x2="12" y2="12"/>
-            <line x1="12" y1="15" x2="12" y2="15"/>
-          </svg>
-        </div>
-        <div class="info-content">
-          <h3>2. Get course info</h3>
-          <p>We'll reach out to share detailed course material and enrollment guidance.</p>
-        </div>
-      </div>
-
-      <div class="infographic-card">
-        <div class="info-icon">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--ledger)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="12" y1="1" x2="12" y2="23"/>
-            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
-          </svg>
-        </div>
-        <div class="info-content">
-          <h3>3. Earn benefits</h3>
-          <p>You receive ₹500 referral benefits once your friend successfully registers.</p>
-        </div>
-      </div>
-
-      <div class="infographic-card">
-        <div class="info-icon">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--ledger)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21.5 2v6h-6"/>
-            <path d="M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
-          </svg>
-        </div>
-        <div class="info-content">
-          <h3>4. Loop continues</h3>
-          <p>Your friend receives their own referral link to share and earn rewards.</p>
-        </div>
-      </div>
-    </div>
-
-    <hr class="divider">
-
-    <h2>Why this is worth trusting</h2>
-    <div class="card">
-      <p><strong>Completely free.</strong> There are no fees or purchases required to participate in our referral program.</p>
-      <p><strong>Privacy first.</strong> We only use mobile numbers to coordinate course information and send referral payouts.</p>
-      <p style="margin-bottom:0"><strong>Simple & Transparent.</strong> Rewards are paid directly for each successful referral. <a href="#" onclick="RAF.showView('legal'); return false;" style="color:var(--ledger)">Read terms &amp; conditions →</a></p>
-    </div>
-
-    <button class="btn btn-primary" onclick="RAF.showView('form')">Recommend someone now</button>
-
     <footer class="site-footer">
-      <p class="legal">By using this page you agree to our <a href="#" onclick="RAF.showView('legal'); return false;">Privacy &amp; Terms</a>. © 2026 Referral Program.</p>
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="#" onclick="RAF.showView('faq'); return false;">FAQ</a>
+        <span aria-hidden="true">·</span>
+        <a href="#" onclick="RAF.showView('legal'); return false;">Privacy &amp; Terms</a>
+      </nav>
     </footer>
   </section>
 
-  <!-- ================= VIEW: FORM ================= -->
+  <!-- ===== VIEW: FORM ===== -->
   <section id="view-form" class="view" aria-labelledby="form-heading">
-    <div class="hero" style="padding-top:8px">
-      <span class="eyebrow">Takes under a minute</span>
-      <h1 id="form-heading" style="font-size:26px">Tell us who you have in mind</h1>
-      <p class="hero-lede" id="form-referral-note"></p>
+
+    <div class="back-nav">
+      <a href="#" onclick="RAF.showView('landing'); return false;" class="back-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+        Back
+      </a>
+    </div>
+
+    <div class="hero" style="padding-top:4px">
+      <h1 id="form-heading">Who would you like to help?</h1>
+      <p class="hero-lede" id="form-referral-note">Share their details and we'll reach out with course information.</p>
     </div>
 
     <form id="raf-form" novalidate>
 
+      <p class="field-group-label">Your details</p>
+
       <div class="field" id="f-yourName">
         <label for="yourName">Your name</label>
-        <input type="text" id="yourName" name="yourName" autocomplete="name" required maxlength="80" placeholder="e.g. Ananya Sharma">
+        <input type="text" id="yourName" name="yourName" autocomplete="name" required maxlength="80" placeholder="Your full name">
         <p class="field-error">Please enter your name.</p>
       </div>
 
       <div class="field" id="f-yourMobile">
         <label for="yourMobile">Your mobile number</label>
         <input type="tel" id="yourMobile" name="yourMobile" autocomplete="tel" required inputmode="numeric" maxlength="10" placeholder="10-digit mobile number">
-        <p class="hint">We'll only use this to confirm your recommendation and send appreciation, if eligible.</p>
+        <p class="hint">We'll contact you only if clarification is needed.</p>
         <p class="field-error">Enter a valid 10-digit mobile number.</p>
       </div>
 
+      <div class="field-divider" aria-hidden="true"></div>
+
+      <p class="field-group-label">Their details</p>
+
       <div class="field" id="f-friendName">
-        <label for="friendName">Recommended person's name</label>
-        <input type="text" id="friendName" name="friendName" required maxlength="80" placeholder="Their full name">
+        <label for="friendName">Their name</label>
+        <input type="text" id="friendName" name="friendName" required maxlength="80" placeholder="Full name of the person">
         <p class="field-error">Please enter their name.</p>
       </div>
 
@@ -166,7 +141,7 @@
       </div>
 
       <div class="field" id="f-course">
-        <label for="course">Course they'd be interested in</label>
+        <label for="course">Course they may be interested in</label>
         <select id="course" name="course" required>
           <option value="" disabled selected>Select a course</option>
           <option>Tally Prime + GST</option>
@@ -188,31 +163,38 @@
       </div>
 
       <button type="submit" class="btn btn-primary" id="submit-btn">
-        <span id="submit-label">Submit recommendation</span>
+        <span id="submit-label">Share this opportunity</span>
       </button>
-      <p class="form-footnote">No fee, no obligation for either of you. You can walk away any time.</p>
+
+      <p class="form-benefit-note">
+        🎁 As a thank-you, successful recommendations may qualify for a <strong>₹500 appreciation benefit.</strong>
+      </p>
+
     </form>
   </section>
 
-  <!-- ================= VIEW: SUCCESS ================= -->
+  <!-- ===== VIEW: SUCCESS ===== -->
   <section id="view-success" class="view" aria-labelledby="success-heading">
-    <div class="hero" style="padding-top:12px">
-      <div class="success-badge" aria-hidden="true">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
-      <h1 id="success-heading">Thank you — that's sent.</h1>
-      <p class="hero-lede">We'll reach out to <strong id="success-friend-name">them</strong> respectfully, once. Here's your own link if you'd like to recommend someone else, or pass it on.</p>
-      <span class="seal">₹500 referral benefit when they join</span>
+
+    <div class="success-icon-wrap" aria-hidden="true">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </div>
 
-    <div class="card">
-      <h3 style="margin-bottom:10px">Your personal link</h3>
+    <h1 id="success-heading">Thank you for sharing this opportunity.</h1>
+    <p class="hero-lede">We'll reach out to <strong id="success-friend-name">them</strong> with course information.</p>
+
+    <div class="benefit-hint" role="note">
+      🎁 If <span id="success-friend-name-2">they</span> enroll in an eligible course, you may qualify for a <strong>₹500 appreciation benefit.</strong>
+    </div>
+
+    <div class="share-section">
+      <p class="share-label">Your sharing link — pass it on if you'd like</p>
       <div class="link-box">
         <span id="referral-link-text">—</span>
       </div>
       <div class="btn-row">
         <button class="btn btn-secondary" id="copy-btn" onclick="RAF.copyLink()">
-          Copy link <span class="copy-tick" id="copy-tick">✓ Copied</span>
+          Copy link <span class="copy-tick" id="copy-tick">✓</span>
         </button>
         <button class="btn btn-whatsapp" id="whatsapp-btn" onclick="RAF.shareWhatsApp()">
           Share on WhatsApp
@@ -220,34 +202,92 @@
       </div>
     </div>
 
-    <p class="text-muted" style="font-size:13px; text-align:center; margin-top:18px;">
-      Recommended someone else in mind too? <a href="#" onclick="RAF.resetForm(); return false;" style="color:var(--ledger)">Submit another recommendation →</a>
-    </p>
+    <!-- Canvas-generated shareable image -->
+    <div class="canvas-section" id="canvas-section" style="display:none">
+      <p class="share-label">Shareable image for WhatsApp</p>
+      <canvas id="share-canvas" width="1080" height="1080" style="width:100%; border-radius:12px; display:block; margin-bottom:10px;"></canvas>
+      <button class="btn btn-secondary" id="download-image-btn" onclick="RAF.downloadImage()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Save &amp; share this image
+      </button>
+    </div>
+
+    <div class="organic-nudge">
+      <p>If you know someone else who may benefit from this opportunity, you can share this page with them too.</p>
+      <a href="#" onclick="RAF.resetForm(); return false;" class="btn btn-ghost" id="share-another-btn">Share for another friend →</a>
+    </div>
 
     <footer class="site-footer">
-      <p class="legal">Referral benefits are paid directly for each successful referral. <a href="#" onclick="RAF.showView('legal'); return false;">Read our policy</a>.</p>
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="#" onclick="RAF.showView('faq'); return false;">FAQ</a>
+        <span aria-hidden="true">·</span>
+        <a href="#" onclick="RAF.showView('legal'); return false;">Privacy &amp; Terms</a>
+      </nav>
     </footer>
   </section>
 
-  <!-- ================= VIEW: LEGAL ================= -->
-  <section id="view-legal" class="view" aria-labelledby="legal-heading">
-    <div class="hero" style="padding-top:8px">
-      <h1 id="legal-heading" style="font-size:24px">Privacy, terms &amp; referral benefits</h1>
+  <!-- ===== VIEW: FAQ ===== -->
+  <section id="view-faq" class="view" aria-labelledby="faq-heading">
+
+    <div class="back-nav">
+      <a href="#" onclick="RAF.showView('landing'); return false;" class="back-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+        Back
+      </a>
     </div>
 
-    <h2 style="font-size:16px">Privacy notice</h2>
-    <p class="text-muted">We collect only what's needed to act on a recommendation: your name and mobile number, and the name, number and course interest of the person you're recommending. This information is stored in a private, access-controlled system and is never sold or shared with third parties. It is used solely to make contact and, where applicable, to process your referral payment.</p>
+    <div class="hero" style="padding-top:4px">
+      <h1 id="faq-heading">Frequently asked questions</h1>
+    </div>
 
-    <h2 style="font-size:16px">Consent</h2>
-    <p class="text-muted">By submitting, you confirm you have a genuine reason to believe the person you're recommending may be interested in learning about these programs.</p>
+    <div class="faq-list">
+      <details class="faq-item" id="faq-free">
+        <summary class="faq-q">Is this completely free?</summary>
+        <p class="faq-a">Yes. There are no fees or charges of any kind to share someone's details or to receive an appreciation benefit.</p>
+      </details>
+      <details class="faq-item" id="faq-contact">
+        <summary class="faq-q">Will my friend be contacted repeatedly?</summary>
+        <p class="faq-a">No. We will make one respectful contact to share course information. Your friend decides whether they are interested — there is no pressure and no follow-up.</p>
+      </details>
+      <details class="faq-item" id="faq-500">
+        <summary class="faq-q">How does the ₹500 appreciation work?</summary>
+        <p class="faq-a">If the person you share this with successfully enrolls in an eligible course, you may qualify for a ₹500 appreciation as a thank-you for sharing the opportunity. This is a gesture of appreciation — not a commission or an income source.</p>
+      </details>
+      <details class="faq-item" id="faq-chain">
+        <summary class="faq-q">Can my friend share this with someone else?</summary>
+        <p class="faq-a">Yes. If your friend finds the opportunity useful, they can share it with others who may also benefit. Each person gets their own unique link so we can say thank you to the right person.</p>
+      </details>
+      <details class="faq-item" id="faq-privacy">
+        <summary class="faq-q">What happens to the information I share?</summary>
+        <p class="faq-a">The details you provide are used only to contact the person you've recommended with course information, and to reach you if we need to confirm anything. Your information is never sold or shared with third parties.</p>
+      </details>
+    </div>
+  </section>
 
-    <h2 style="font-size:16px">How the ₹500 referral benefit works</h2>
-    <p class="text-muted">When a person you refer successfully registers and enrolls in a course, you become eligible for a ₹500 referral reward. Both submitting referrals and receiving rewards are completely free of charge.</p>
+  <!-- ===== VIEW: LEGAL ===== -->
+  <section id="view-legal" class="view" aria-labelledby="legal-heading">
 
-    <h2 style="font-size:16px">Terms (placeholder)</h2>
-    <p class="text-muted">Full terms of service will be published here. For questions in the meantime, contact the program coordinator directly using the details provided at enrollment.</p>
+    <div class="back-nav">
+      <a href="#" onclick="RAF.showView('landing'); return false;" class="back-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+        Back
+      </a>
+    </div>
 
-    <button class="btn btn-secondary" onclick="RAF.showView('landing')" style="margin-top:10px">← Back</button>
+    <div class="hero" style="padding-top:4px">
+      <h1 id="legal-heading">Privacy &amp; Terms</h1>
+    </div>
+
+    <h2 class="legal-h2">Privacy notice</h2>
+    <p class="text-muted">We collect only what's needed to act on a recommendation: your name and mobile number, and the name, number and course interest of the person you're recommending. This information is stored in a private, access-controlled system and is never sold or shared with third parties. It is used solely to make contact and, where applicable, to confirm an appreciation benefit.</p>
+
+    <h2 class="legal-h2">Appreciation benefit</h2>
+    <p class="text-muted">When a person you recommend successfully enrolls in an eligible course, you may qualify for a ₹500 appreciation as a thank-you for sharing the opportunity. Both sharing and receiving the appreciation are completely free of charge. Eligibility is verified manually and at the program coordinator's discretion.</p>
+
+    <h2 class="legal-h2">Terms</h2>
+    <p class="text-muted">Full terms of service will be published here. For any questions, please contact the program coordinator using the details provided at enrollment.</p>
+
+    <button class="btn btn-secondary" onclick="RAF.showView('landing')" style="margin-top:20px; width:auto; padding-left:20px; padding-right:20px;">← Back</button>
   </section>
 
 </div>

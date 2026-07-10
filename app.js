@@ -1,11 +1,10 @@
 /* ============================================================
-   Recommend a Friend — Client Application Logic
+   Share an Opportunity — Client Application Logic
    ============================================================
    HOW TO CONFIGURE:
    1. Deploy the Google Apps Script (see /apps-script/Code.gs) as a
       Web App and paste the deployment URL into CONFIG.SCRIPT_URL below.
-   2. Replace CONFIG.SITE_URL with your GitHub Pages URL
-      (e.g. https://yourusername.github.io/your-repo/).
+   2. CONFIG.SITE_URL is auto-derived from the current page URL.
    ============================================================ */
 
 const CONFIG = {
@@ -19,7 +18,7 @@ const RAF = (function () {
 
   let state = {
     referralSource: null,   // referral ID captured from ?ref= in the URL
-    lastResult: null        // { referralId, referralLink } from the last successful submit
+    lastResult: null        // { referralId, referralLink, friendName, course, friendMobile } from last submit
   };
 
   /* ---------------- Init ---------------- */
@@ -51,8 +50,8 @@ const RAF = (function () {
     const note = document.getElementById("form-referral-note");
     if (!note) return;
     note.textContent = state.referralSource
-      ? "A friend thought this might be useful to you. Fill this in for someone you'd like to recommend."
-      : "Just the essentials — this takes about a minute.";
+      ? "Someone thought this opportunity might be helpful for you. Share it with someone you know too."
+      : "Share their details and we'll reach out with course information.";
   }
 
   /* ---------------- View switching ---------------- */
@@ -82,11 +81,11 @@ const RAF = (function () {
 
   function validators() {
     return {
-      yourName: v => v.trim().length >= 2,
-      yourMobile: v => CONFIG.MOBILE_REGEX.test(v.trim()),
-      friendName: v => v.trim().length >= 2,
+      yourName:    v => v.trim().length >= 2,
+      yourMobile:  v => CONFIG.MOBILE_REGEX.test(v.trim()),
+      friendName:  v => v.trim().length >= 2,
       friendMobile: v => CONFIG.MOBILE_REGEX.test(v.trim()),
-      course: v => v.trim().length > 0
+      course:      v => v.trim().length > 0
     };
   }
 
@@ -103,7 +102,6 @@ const RAF = (function () {
     const ids = ["yourName", "yourMobile", "friendName", "friendMobile", "course"];
     let allOk = true;
     ids.forEach(id => { if (!validateField(id)) allOk = false; });
-
     return allOk;
   }
 
@@ -116,7 +114,7 @@ const RAF = (function () {
       el.addEventListener("blur", () => validateField(id));
       el.addEventListener("input", () => {
         const wrap = document.getElementById("f-" + id);
-        if (wrap.classList.contains("has-error")) validateField(id);
+        if (wrap && wrap.classList.contains("has-error")) validateField(id);
       });
     });
 
@@ -140,15 +138,17 @@ const RAF = (function () {
     }
 
     const payload = {
-      yourName: document.getElementById("yourName").value.trim(),
-      yourMobile: document.getElementById("yourMobile").value.trim(),
-      friendName: document.getElementById("friendName").value.trim(),
-      friendMobile: document.getElementById("friendMobile").value.trim(),
-      course: document.getElementById("course").value,
+      yourName:      document.getElementById("yourName").value.trim(),
+      yourMobile:    document.getElementById("yourMobile").value.trim(),
+      friendName:    document.getElementById("friendName").value.trim(),
+      friendMobile:  document.getElementById("friendMobile").value.trim(),
+      course:        document.getElementById("course").value,
       referralSource: state.referralSource || "",
-      referralLinkUsed: state.referralSource ? (CONFIG.SITE_URL + "?ref=" + encodeURIComponent(state.referralSource)) : "",
-      pageUrl: window.location.href,
-      userAgent: navigator.userAgent,
+      referralLinkUsed: state.referralSource
+        ? (CONFIG.SITE_URL + "?ref=" + encodeURIComponent(state.referralSource))
+        : "",
+      pageUrl:        window.location.href,
+      userAgent:      navigator.userAgent,
       clientTimestamp: new Date().toISOString()
     };
 
@@ -165,8 +165,8 @@ const RAF = (function () {
     const label = document.getElementById("submit-label");
     btn.disabled = isSubmitting;
     label.innerHTML = isSubmitting
-      ? '<span class="spinner" aria-hidden="true"></span> Submitting…'
-      : "Submit recommendation";
+      ? '<span class="spinner" aria-hidden="true"></span> Sharing…'
+      : "Share this opportunity";
   }
 
   function submitToBackend(payload) {
@@ -193,8 +193,8 @@ const RAF = (function () {
     state.lastResult = {
       referralId,
       referralLink,
-      friendName: payload.friendName,
-      course: payload.course,
+      friendName:   payload.friendName,
+      course:       payload.course,
       friendMobile: payload.friendMobile
     };
     renderSuccess(state.lastResult);
@@ -202,17 +202,16 @@ const RAF = (function () {
   }
 
   // If the backend is unreachable/unconfigured, the user still gets a
-  // working personal link (best-effort — actual data capture happens
-  // server-side once configured). This keeps the experience frictionless
-  // even before deployment is fully wired up.
+  // working personal link (best-effort). Actual data capture happens
+  // server-side once configured.
   function onSubmitFallback(payload) {
     const referralId = generateReferralId();
     const referralLink = CONFIG.SITE_URL + "?ref=" + encodeURIComponent(referralId);
     state.lastResult = {
       referralId,
       referralLink,
-      friendName: payload.friendName,
-      course: payload.course,
+      friendName:   payload.friendName,
+      course:       payload.course,
       friendMobile: payload.friendMobile
     };
     renderSuccess(state.lastResult);
@@ -221,9 +220,193 @@ const RAF = (function () {
   }
 
   function renderSuccess(result) {
-    document.getElementById("success-friend-name").textContent = result.friendName || "them";
-    document.getElementById("referral-link-text").textContent = result.referralLink;
+    // Populate friend name placeholders
+    const nameEl = document.getElementById("success-friend-name");
+    const nameEl2 = document.getElementById("success-friend-name-2");
+    const firstName = (result.friendName || "them").split(" ")[0];
+    if (nameEl) nameEl.textContent = firstName;
+    if (nameEl2) nameEl2.textContent = firstName;
+
+    // Populate referral link
+    const linkEl = document.getElementById("referral-link-text");
+    if (linkEl) linkEl.textContent = result.referralLink;
+
     showView("success");
+
+    // Draw canvas image after a short delay (fonts need to be ready)
+    document.fonts.ready.then(() => {
+      try {
+        renderCanvas(result);
+        const section = document.getElementById("canvas-section");
+        if (section) section.style.display = "block";
+      } catch (err) {
+        console.warn("Canvas image generation failed:", err);
+      }
+    });
+  }
+
+  /* ---------------- Canvas image generation ---------------- */
+
+  function renderCanvas(result) {
+    const canvas = document.getElementById("share-canvas");
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    const W = 1080, H = 1080;
+
+    // --- Background ---
+    const bgGrad = ctx.createLinearGradient(0, 0, 0, H);
+    bgGrad.addColorStop(0, "#0D3D32");
+    bgGrad.addColorStop(1, "#146356");
+    ctx.fillStyle = bgGrad;
+    ctx.fillRect(0, 0, W, H);
+
+    // Decorative subtle circles (top-right)
+    ctx.save();
+    ctx.strokeStyle = "rgba(255,255,255,0.06)";
+    ctx.lineWidth = 2;
+    for (let r = 160; r <= 400; r += 80) {
+      ctx.beginPath();
+      ctx.arc(W - 20, 60, r, 0, Math.PI * 2);
+      ctx.stroke();
+    }
+    ctx.restore();
+
+    // Decorative circles (bottom-left)
+    ctx.save();
+    ctx.strokeStyle = "rgba(255,255,255,0.04)";
+    ctx.lineWidth = 2;
+    for (let r = 100; r <= 260; r += 80) {
+      ctx.beginPath();
+      ctx.arc(40, H - 40, r, 0, Math.PI * 2);
+      ctx.stroke();
+    }
+    ctx.restore();
+
+    // --- Header label ---
+    ctx.save();
+    ctx.fillStyle = "rgba(255,255,255,0.45)";
+    ctx.font = "500 32px Inter, sans-serif";
+    ctx.fillText("A FRIEND THOUGHT OF YOU", 80, 110);
+    ctx.restore();
+
+    // --- Main headline ---
+    ctx.save();
+    ctx.fillStyle = "#FFFFFF";
+    wrapText(ctx, "Discover a Course That May Support Your Career", 80, 200, W - 160, "700 74px Source Serif 4, Georgia, serif", 90);
+    ctx.restore();
+
+    // --- Course badge ---
+    const course = result.course || "A course for you";
+    const badgeY = 440;
+    const badgePadX = 28, badgePadY = 16;
+
+    ctx.save();
+    ctx.font = "700 36px Inter, sans-serif";
+    const courseWidth = ctx.measureText(course).width;
+    const badgeW = courseWidth + badgePadX * 2;
+    const badgeH = 36 + badgePadY * 2;
+
+    // Badge background
+    roundRect(ctx, 80, badgeY, badgeW, badgeH, 14);
+    ctx.fillStyle = "#F0C060";
+    ctx.fill();
+
+    // Badge text
+    ctx.fillStyle = "#0D3D32";
+    ctx.fillText(course, 80 + badgePadX, badgeY + badgePadY + 28);
+    ctx.restore();
+
+    // --- Divider ---
+    ctx.save();
+    ctx.strokeStyle = "rgba(255,255,255,0.15)";
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(80, 560);
+    ctx.lineTo(W - 80, 560);
+    ctx.stroke();
+    ctx.restore();
+
+    // --- Sub-copy ---
+    ctx.save();
+    ctx.fillStyle = "rgba(255,255,255,0.80)";
+    wrapText(ctx, "Explore learning & career growth opportunities.", 80, 620, W - 160, "400 40px Inter, sans-serif", 56);
+    ctx.restore();
+
+    // --- Institution name ---
+    ctx.save();
+    ctx.fillStyle = "rgba(255,255,255,0.55)";
+    ctx.font = "500 30px Inter, sans-serif";
+    ctx.fillText("Samyak Computer Classes, Sambalpur", 80, 760);
+    ctx.restore();
+
+    // --- Divider 2 ---
+    ctx.save();
+    ctx.strokeStyle = "rgba(255,255,255,0.10)";
+    ctx.lineWidth = 1;
+    ctx.setLineDash([6, 6]);
+    ctx.beginPath();
+    ctx.moveTo(80, 800);
+    ctx.lineTo(W - 80, 800);
+    ctx.stroke();
+    ctx.restore();
+
+    // --- URL label ---
+    ctx.save();
+    ctx.fillStyle = "rgba(255,255,255,0.35)";
+    ctx.font = "400 26px Inter, sans-serif";
+    const shortUrl = result.referralLink.replace("https://", "").slice(0, 54);
+    ctx.fillText(shortUrl, 80, 855);
+    ctx.restore();
+
+    // --- Bottom call to action ---
+    ctx.save();
+    ctx.fillStyle = "rgba(255,255,255,0.25)";
+    ctx.font = "400 24px Inter, sans-serif";
+    ctx.fillText("Open the link to learn more or share with a friend →", 80, 920);
+    ctx.restore();
+  }
+
+  function wrapText(ctx, text, x, y, maxWidth, font, lineHeight) {
+    ctx.font = font;
+    const words = text.split(" ");
+    let line = "";
+    let currentY = y;
+    for (let i = 0; i < words.length; i++) {
+      const testLine = line + words[i] + " ";
+      const metrics = ctx.measureText(testLine);
+      if (metrics.width > maxWidth && i > 0) {
+        ctx.fillText(line.trim(), x, currentY);
+        line = words[i] + " ";
+        currentY += lineHeight;
+      } else {
+        line = testLine;
+      }
+    }
+    ctx.fillText(line.trim(), x, currentY);
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.lineTo(x + w - r, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+    ctx.lineTo(x + w, y + h - r);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+    ctx.lineTo(x + r, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+    ctx.lineTo(x, y + r);
+    ctx.quadraticCurveTo(x, y, x + r, y);
+    ctx.closePath();
+  }
+
+  function downloadImage() {
+    const canvas = document.getElementById("share-canvas");
+    if (!canvas) return;
+    const link = document.createElement("a");
+    link.download = "share-opportunity.png";
+    link.href = canvas.toDataURL("image/png");
+    link.click();
+    showToast("Image saved — attach it in WhatsApp for more impact.");
   }
 
   /* ---------------- Copy & share ---------------- */
@@ -234,8 +417,10 @@ const RAF = (function () {
 
     const done = () => {
       const tick = document.getElementById("copy-tick");
-      tick.classList.add("show");
-      setTimeout(() => tick.classList.remove("show"), 1800);
+      if (tick) {
+        tick.classList.add("show");
+        setTimeout(() => tick.classList.remove("show"), 1800);
+      }
       showToast("Link copied.");
     };
 
@@ -253,21 +438,25 @@ const RAF = (function () {
     ta.style.opacity = "0";
     document.body.appendChild(ta);
     ta.select();
-    try { document.execCommand("copy"); done(); } catch (e) { showToast("Copy failed — long-press the link to copy."); }
+    try { document.execCommand("copy"); done(); } catch (e) { showToast("Long-press the link to copy."); }
     document.body.removeChild(ta);
   }
 
+  /* ---------------- WhatsApp ---------------- */
+
   function getWhatsAppMessage(result) {
-    return `Hi! I have referred you for the course "${result.course}" at Samyak Computer Classes, Sambalpur.\n\n` +
-      `You can learn more and also recommend someone who may benefit from it:\n\n` +
-      result.referralLink;
+    return (
+      "Hi,\n\n" +
+      "I thought this course might be useful for you.\n\n" +
+      "I have recommended you so that you can receive more information directly.\n\n" +
+      "You can also explore here:\n\n" +
+      result.referralLink
+    );
   }
 
   function formatWhatsAppPhone(mobile) {
     let phone = (mobile || "").replace(/\D/g, "");
-    if (phone.length === 10) {
-      phone = "91" + phone;
-    }
+    if (phone.length === 10) phone = "91" + phone;
     return phone;
   }
 
@@ -294,7 +483,7 @@ const RAF = (function () {
     toast.textContent = message;
     toast.classList.add("show");
     clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => toast.classList.remove("show"), 2600);
+    toastTimer = setTimeout(() => toast.classList.remove("show"), 2800);
   }
 
   /* ---------------- Public API ---------------- */
@@ -305,7 +494,8 @@ const RAF = (function () {
     goHome,
     resetForm,
     copyLink,
-    shareWhatsApp
+    shareWhatsApp,
+    downloadImage
   };
 
 })();
