@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dashboard — Recommend a Friend</title>
+<meta name="robots" content="noindex, nofollow">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js"></script>
+</head>
+<body>
+
+<div class="shell shell-wide">
+
+  <div class="topbar">
+    <a class="brand" href="index.html">
+      <span class="brand-mark">Brightpath</span>
+      <span class="brand-sub">Referral Dashboard</span>
+    </a>
+  </div>
+
+  <!-- ============ Token gate ============ -->
+  <section id="gate" class="card gate-card">
+    <span class="eyebrow">Admin only</span>
+    <h2>Enter dashboard token</h2>
+    <p class="text-muted" style="font-size:13.5px">This is the ADMIN_TOKEN generated when you ran <code>setup()</code> in Apps Script.</p>
+    <input type="password" id="token-input" placeholder="Dashboard token" autocomplete="off">
+    <button class="btn btn-primary" onclick="ADMIN.unlock()">View dashboard</button>
+    <p class="text-muted" id="gate-error" style="font-size:12.5px; color:var(--danger); display:none; margin-top:10px;">That token wasn't accepted. Check Apps Script → Project Settings → Script Properties.</p>
+  </section>
+
+  <!-- ============ Dashboard ============ -->
+  <section id="dashboard" style="display:none">
+
+    <div class="hero">
+      <span class="eyebrow">Live from Google Sheets</span>
+      <h1 style="font-size:24px">Referral performance</h1>
+    </div>
+
+    <div class="refresh-row">
+      <span class="updated-note" id="updated-note">Not yet loaded</span>
+      <button class="btn btn-secondary" onclick="ADMIN.load()">Refresh</button>
+    </div>
+
+    <div id="dash-content" style="display:none">
+
+      <div class="stat-grid">
+        <div class="stat-card"><span class="v" id="s-total">0</span><span class="l">Total recommendations</span></div>
+        <div class="stat-card"><span class="v" id="s-today">0</span><span class="l">Today</span></div>
+        <div class="stat-card"><span class="v" id="s-week">0</span><span class="l">Last 7 days</span></div>
+        <div class="stat-card"><span class="v" id="s-month">0</span><span class="l">Last 30 days</span></div>
+      </div>
+      <div class="stat-grid">
+        <div class="stat-card"><span class="v" id="s-admitted">0</span><span class="l">Admissions</span></div>
+        <div class="stat-card"><span class="v" id="s-eligible">0</span><span class="l">Appreciation eligible</span></div>
+        <div class="stat-card"><span class="v" id="s-paid">0</span><span class="l">Appreciation paid</span></div>
+        <div class="stat-card"><span class="v" id="s-direct">0</span><span class="l">Direct (Level 1) share</span></div>
+      </div>
+
+      <div class="dash-section">
+        <h2 style="font-size:16px">Funnel</h2>
+        <div class="chart-card"><canvas id="chart-funnel" height="120"></canvas></div>
+      </div>
+
+      <div class="dash-section dash-grid two">
+        <div>
+          <h2 style="font-size:16px">Recommendations over time</h2>
+          <div class="chart-card"><canvas id="chart-timeseries" height="180"></canvas></div>
+        </div>
+        <div>
+          <h2 style="font-size:16px">Course-wise interest</h2>
+          <div class="chart-card"><canvas id="chart-course" height="180"></canvas></div>
+        </div>
+      </div>
+
+      <div class="dash-section dash-grid two">
+        <div>
+          <h2 style="font-size:16px">Referral chain depth</h2>
+          <p class="text-muted" style="font-size:12.5px; margin-top:-6px;">Tracked for analytics only — appreciation is paid on Level 1 (direct) recommendations exclusively.</p>
+          <div class="chart-card"><canvas id="chart-levels" height="160"></canvas></div>
+        </div>
+        <div>
+          <h2 style="font-size:16px">Status breakdown</h2>
+          <div class="chart-card"><canvas id="chart-status" height="160"></canvas></div>
+        </div>
+      </div>
+
+      <div class="dash-section">
+        <h2 style="font-size:16px">Top contributors</h2>
+        <p class="text-muted" style="font-size:12.5px; margin-top:-6px;">Ranked by number of direct recommendations submitted.</p>
+        <div class="table-wrap">
+          <table class="data-table" id="table-contributors">
+            <thead><tr><th>Referrer</th><th>Mobile</th><th>Recommendations</th><th>Admitted</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="dash-section">
+        <h2 style="font-size:16px">Recent recommendations</h2>
+        <div class="table-wrap">
+          <table class="data-table" id="table-recent">
+            <thead><tr><th>Date</th><th>Referrer</th><th>Recommended</th><th>Course</th><th>Level</th><th>Status</th><th>Admission</th><th>Reward</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+    <div id="dash-empty" class="empty-state" style="display:none">
+      <p>No recommendations yet. Once the form starts receiving submissions, they'll show up here.</p>
+    </div>
+
+  </section>
+
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="admin.js"></script>
+</body>
+</html>

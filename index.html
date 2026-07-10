@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Recommend a Friend — Brightpath Institute</title>
+<meta name="description" content="Know someone who'd benefit from a course? Recommend them in under a minute. No fees, no pressure — just a genuine introduction.">
+
+<!-- ================= Open Graph / Social Sharing ================= -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Recommend a Friend — Brightpath Institute">
+<meta property="og:description" content="Someone recommended this to you. Take a minute to see what it's about — no obligation, no cost.">
+<meta property="og:image" content="https://YOUR-USERNAME.github.io/YOUR-REPO/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://YOUR-USERNAME.github.io/YOUR-REPO/">
+<meta property="og:site_name" content="Brightpath Institute">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#FAFAF8">
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%23146356%22/><text x=%2250%22 y=%2263%22 font-size=%2250%22 fill=%22white%22 text-anchor=%22middle%22 font-family=%22Georgia,serif%22>B</text></svg>">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="shell">
+
+  <div class="topbar">
+    <a class="brand" href="#" onclick="RAF.goHome(event)">
+      <span class="brand-mark">Brightpath</span>
+      <span class="brand-sub">Recommend a Friend</span>
+    </a>
+  </div>
+
+  <!-- ================= VIEW: LANDING ================= -->
+  <section id="view-landing" class="view is-active" aria-labelledby="landing-heading">
+
+    <div class="hero">
+      <span class="eyebrow">A referral, not a sales pitch</span>
+      <h1 id="landing-heading">Know someone ready to learn something new?</h1>
+      <p class="hero-lede">Tell us about them in under a minute. We'll reach out once — respectfully — and let them decide for themselves.</p>
+    </div>
+
+    <div class="trust-strip" role="list" aria-label="Trust indicators">
+      <div class="trust-item" role="listitem"><span class="n">Direct only</span><span class="l">No chains, no MLM</span></div>
+      <div class="trust-item" role="listitem"><span class="n">₹0</span><span class="l">Cost to recommend</span></div>
+      <div class="trust-item" role="listitem"><span class="n">1 min</span><span class="l">To submit</span></div>
+    </div>
+
+    <button class="btn btn-primary" style="margin-top:12px" onclick="RAF.showView('form')">
+      Recommend someone
+    </button>
+
+    <hr class="divider">
+
+    <h2>How it works</h2>
+    <div class="steps">
+      <div class="step">
+        <span class="step-index">01</span>
+        <div class="step-body">
+          <h3>You share a name</h3>
+          <p>Just their name, number, and the course you think suits them. Nothing else.</p>
+        </div>
+      </div>
+      <div class="step">
+        <span class="step-index">02</span>
+        <div class="step-body">
+          <h3>We reach out once</h3>
+          <p>A single, respectful call or message — never repeated outreach, never spam.</p>
+        </div>
+      </div>
+      <div class="step">
+        <span class="step-index">03</span>
+        <div class="step-body">
+          <h3>If they join, you're thanked</h3>
+          <p>A genuine admission from your direct recommendation makes you eligible for a
+            <strong>₹500 appreciation</strong> — our way of saying thank you.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="chain-wrap">
+      <svg class="chain-svg" viewBox="0 0 480 150" role="img" aria-labelledby="chain-title chain-desc">
+        <title id="chain-title">Only direct recommendations are rewarded</title>
+        <desc id="chain-desc">You recommend a friend directly and are eligible for appreciation. If that friend goes on to recommend someone else, you are not rewarded for that second recommendation — there is no multi-level structure.</desc>
+
+        <!-- You -> Friend : solid, rewarded -->
+        <line x1="70" y1="75" x2="230" y2="75" stroke="#146356" stroke-width="2.5"/>
+        <circle cx="60" cy="75" r="26" fill="#146356"/>
+        <text x="60" y="80" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" fill="#fff" font-weight="600">You</text>
+
+        <circle cx="240" cy="75" r="26" fill="#FAFAF8" stroke="#146356" stroke-width="2.5"/>
+        <text x="240" y="80" text-anchor="middle" font-family="Inter, sans-serif" font-size="11" fill="#1B2A4A" font-weight="600">Friend</text>
+
+        <rect x="118" y="52" width="64" height="18" rx="9" fill="#FBF3E1" stroke="#9A6B12" stroke-width="1"/>
+        <text x="150" y="65" text-anchor="middle" font-family="Inter, sans-serif" font-size="9.5" fill="#9A6B12" font-weight="700">₹500</text>
+
+        <!-- Friend -> Their friend : dashed, not rewarded -->
+        <line x1="266" y1="75" x2="410" y2="75" stroke="#B7B2A2" stroke-width="2" stroke-dasharray="5 5"/>
+        <circle cx="420" cy="75" r="24" fill="#FAFAF8" stroke="#B7B2A2" stroke-width="2"/>
+        <text x="420" y="80" text-anchor="middle" font-family="Inter, sans-serif" font-size="9.5" fill="#5B6472" font-weight="600">Their friend</text>
+
+        <text x="340" y="52" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#5B6472" font-style="italic">not rewarded</text>
+      </svg>
+      <p class="chain-caption">You're only ever thanked for people you recommend directly — never for who they recommend after you.</p>
+    </div>
+
+    <hr class="divider">
+
+    <h2>Why this is worth trusting</h2>
+    <div class="card">
+      <p><strong>No joining fee, ever.</strong> Recommending is free, and so is receiving your appreciation payout.</p>
+      <p><strong>No membership, no purchase required.</strong> This isn't a network you join — it's a form you fill once.</p>
+      <p><strong>Your number stays with us.</strong> We use it only to confirm your recommendation and to pay appreciation — never sold, never shared.</p>
+      <p style="margin-bottom:0"><strong>This is not MLM.</strong> There are no downlines, no indirect earnings, and no reward for anything beyond your own direct recommendation. <a href="#" onclick="RAF.showView('legal'); return false;" style="color:var(--ledger)">Read our full policy →</a></p>
+    </div>
+
+    <button class="btn btn-primary" onclick="RAF.showView('form')">Recommend someone now</button>
+
+    <footer class="site-footer">
+      <p class="legal">By using this page you agree to our <a href="#" onclick="RAF.showView('legal'); return false;">Privacy &amp; Terms</a>. Brightpath Institute · Not affiliated with any multi-level marketing structure.</p>
+    </footer>
+  </section>
+
+  <!-- ================= VIEW: FORM ================= -->
+  <section id="view-form" class="view" aria-labelledby="form-heading">
+    <div class="hero" style="padding-top:8px">
+      <span class="eyebrow">Takes under a minute</span>
+      <h1 id="form-heading" style="font-size:26px">Tell us who you have in mind</h1>
+      <p class="hero-lede" id="form-referral-note"></p>
+    </div>
+
+    <form id="raf-form" novalidate>
+
+      <div class="field" id="f-yourName">
+        <label for="yourName">Your name</label>
+        <input type="text" id="yourName" name="yourName" autocomplete="name" required maxlength="80" placeholder="e.g. Ananya Sharma">
+        <p class="field-error">Please enter your name.</p>
+      </div>
+
+      <div class="field" id="f-yourMobile">
+        <label for="yourMobile">Your mobile number</label>
+        <input type="tel" id="yourMobile" name="yourMobile" autocomplete="tel" required inputmode="numeric" maxlength="10" placeholder="10-digit mobile number">
+        <p class="hint">We'll only use this to confirm your recommendation and send appreciation, if eligible.</p>
+        <p class="field-error">Enter a valid 10-digit mobile number.</p>
+      </div>
+
+      <div class="field" id="f-friendName">
+        <label for="friendName">Recommended person's name</label>
+        <input type="text" id="friendName" name="friendName" required maxlength="80" placeholder="Their full name">
+        <p class="field-error">Please enter their name.</p>
+      </div>
+
+      <div class="field" id="f-friendMobile">
+        <label for="friendMobile">Their mobile number</label>
+        <input type="tel" id="friendMobile" name="friendMobile" required inputmode="numeric" maxlength="10" placeholder="10-digit mobile number">
+        <p class="field-error">Enter a valid 10-digit mobile number.</p>
+      </div>
+
+      <div class="field" id="f-course">
+        <label for="course">Course they'd be interested in</label>
+        <select id="course" name="course" required>
+          <option value="" disabled selected>Select a course</option>
+          <option>Tally Prime + GST</option>
+          <option>SAP</option>
+          <option>Data Analytics</option>
+          <option>Data Science</option>
+          <option>Advanced Excel</option>
+          <option>AutoCAD</option>
+          <option>Digital Marketing</option>
+          <option>Web Development</option>
+          <option>Python</option>
+          <option>Spoken English</option>
+          <option>Graphic Designing</option>
+          <option>Video Editing</option>
+          <option>Basic Computers</option>
+          <option>Other</option>
+        </select>
+        <p class="field-error">Please select a course.</p>
+      </div>
+
+      <div class="consent">
+        <input type="checkbox" id="consent" name="consent" required>
+        <label for="consent">I confirm this person may reasonably be interested in receiving information about learning opportunities or career-oriented programs, and I'm recommending them in good faith.</label>
+      </div>
+      <div class="field-error" id="consent-error" style="display:none; margin:-10px 0 14px;">Please confirm before submitting.</div>
+
+      <button type="submit" class="btn btn-primary" id="submit-btn">
+        <span id="submit-label">Submit recommendation</span>
+      </button>
+      <p class="form-footnote">No fee, no obligation for either of you. You can walk away any time.</p>
+    </form>
+  </section>
+
+  <!-- ================= VIEW: SUCCESS ================= -->
+  <section id="view-success" class="view" aria-labelledby="success-heading">
+    <div class="hero" style="padding-top:12px">
+      <div class="success-badge" aria-hidden="true">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <h1 id="success-heading">Thank you — that's sent.</h1>
+      <p class="hero-lede">We'll reach out to <strong id="success-friend-name">them</strong> respectfully, once. Here's your own link if you'd like to recommend someone else, or pass it on.</p>
+      <span class="seal">₹500 appreciation if they join, directly through you</span>
+    </div>
+
+    <div class="card">
+      <h3 style="margin-bottom:10px">Your personal link</h3>
+      <div class="link-box">
+        <span id="referral-link-text">—</span>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-secondary" id="copy-btn" onclick="RAF.copyLink()">
+          Copy link <span class="copy-tick" id="copy-tick">✓ Copied</span>
+        </button>
+        <button class="btn btn-whatsapp" id="whatsapp-btn" onclick="RAF.shareWhatsApp()">
+          Share on WhatsApp
+        </button>
+      </div>
+    </div>
+
+    <p class="text-muted" style="font-size:13px; text-align:center; margin-top:18px;">
+      Recommended someone else in mind too? <a href="#" onclick="RAF.resetForm(); return false;" style="color:var(--ledger)">Submit another recommendation →</a>
+    </p>
+
+    <footer class="site-footer">
+      <p class="legal">Only your own, direct recommendations are ever eligible for appreciation. <a href="#" onclick="RAF.showView('legal'); return false;">Read our policy</a>.</p>
+    </footer>
+  </section>
+
+  <!-- ================= VIEW: LEGAL ================= -->
+  <section id="view-legal" class="view" aria-labelledby="legal-heading">
+    <div class="hero" style="padding-top:8px">
+      <h1 id="legal-heading" style="font-size:24px">Privacy, terms &amp; how appreciation works</h1>
+    </div>
+
+    <h2 style="font-size:16px">Privacy notice</h2>
+    <p class="text-muted">We collect only what's needed to act on a recommendation: your name and mobile number, and the name, number and course interest of the person you're recommending. This information is stored in a private, access-controlled system and is never sold or shared with third parties. It is used solely to make one respectful contact and, where applicable, to process your appreciation payment.</p>
+
+    <h2 style="font-size:16px">Consent</h2>
+    <p class="text-muted">By submitting, you confirm you have a genuine, good-faith reason to believe the person you're recommending may be interested in learning about our programs. We rely on your judgment as the referrer — please only recommend people you know.</p>
+
+    <h2 style="font-size:16px">How the ₹500 appreciation works</h2>
+    <p class="text-muted">If the person you recommend <em>directly</em> is admitted into a program, you become eligible for a ₹500 appreciation payment. There is:</p>
+    <ul class="text-muted" style="padding-left:20px; margin:0 0 14px;">
+      <li>No joining fee or membership required to participate</li>
+      <li>No purchase necessary, for you or the person you recommend</li>
+      <li>No reward for anyone your recommended person later refers — appreciation applies to direct recommendations only</li>
+      <li>No multi-level or downline structure of any kind</li>
+    </ul>
+    <p class="text-muted">We track how links are shared for our own analytics — to understand which recommendations lead to genuine interest — but this tracking never creates additional layers of reward. It exists so we can thank the right person, not to build a network.</p>
+
+    <h2 style="font-size:16px">This is not MLM</h2>
+    <p class="text-muted">Brightpath Institute's referral appreciation is a simple thank-you for a direct, genuine introduction — comparable to an employee referral bonus. It is not a business opportunity, does not involve recruitment into a selling structure, and carries no financial risk or obligation for participants.</p>
+
+    <h2 style="font-size:16px">Terms (placeholder)</h2>
+    <p class="text-muted">Full terms of service will be published here. For questions in the meantime, contact the institute directly using the details provided at enrollment.</p>
+
+    <button class="btn btn-secondary" onclick="RAF.showView('landing')" style="margin-top:10px">← Back</button>
+  </section>
+
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
