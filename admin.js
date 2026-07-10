@@ -7,8 +7,8 @@
    ============================================================ */
 
 const CONFIG = {
-  SCRIPT_URL: "PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE",
-  TOKEN_STORAGE_KEY: "raf_admin_token"
+  SCRIPT_URL: "https://script.google.com/macros/s/AKfycbwpVRLxgVrDSFTZE2YV3FY4tMWpLQg0GRtQmMo12YTAGAmO5czejJQn0JJq8OMjwMLw/exec",
+  TOKEN_STORAGE_KEY: "e53f3f23-2380-4175-9a26-b33725dc6702"
 };
 
 const ADMIN = (function () {
